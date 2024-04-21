@@ -16,7 +16,7 @@ create table student(
     student_name varchar (10),
     department varchar(5),
     max_credit int,
-    min_credit int,
+    min_credit int
 );
 
 create table choosen(
