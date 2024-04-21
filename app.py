@@ -9,8 +9,15 @@ def index():
 
 @app.route('/action', methods=['POST'])
 def action():
-    my_class = request.form.get("my_class")
+    my_function = request.form.get("my_function")
     conn = MySQLdb.connect(host="127.0.0.1",port=3306, user="Jun", passwd="1234", db="dbdemo")
+    if(my_function=="加選"):{
+
+    }
+    elif(my_function=="退選"):{
+
+    }
+        
     query = "SELECT  course_name FROM course where course_name LIKE '{}%';".format(my_class)
     cursor = conn.cursor()
     cursor.execute(query)
