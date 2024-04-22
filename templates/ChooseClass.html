@@ -1,4 +1,119 @@
 <!DOCTYPE html>
-<html>
-    
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>選課系統</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #courseTable {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #courseTable th, #courseTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #courseTable th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button-gap {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>選課系統</h2>
+    <p><span id="rr"></span></p>
+    <form id="courseForm" action="/submit" method="POST">
+        <label for="student_id">學號:</label>
+        <input type="text" id="student_id" name="student_id" required>
+
+        <label for="action">加/退選:</label>
+        <select id="action" name="action" required>
+            <option value="add">加選</option>
+            <option value="drop">退選</option>
+        </select>
+        <label for="course_id">課程代碼:</label>
+        <input type="text" id="course_id" name="course_id" required>
+
+        <button type="submit" id="submitBtn">提交</button>
+        <div class="button-gap"></div> <!-- 加入空隙 -->
+    </form>
+
+    <table id="courseTable">
+        <thead>
+        <tr>
+            <th>課程代碼</th>
+            <th>上課名稱</th>
+            <th>上課時間</th>
+            <th>科系</th>
+            <th>教授</th>
+            <th>學分數</th>
+            <th>課堂人數上限</th>
+            <th>必選修</th>
+        </tr>
+        </thead>
+        <tbody id="courseTableBody">
+            {% if courseTable %}
+                {% for course in courseTable %}
+                    <tr>
+                        <td>{{ course.course_id }}</td>
+                        <td>{{ course.credit }}</td>
+                        <!-- 插入其他欄位 -->
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+</body>
 </html>
