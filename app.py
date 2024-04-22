@@ -44,7 +44,12 @@ def submit():
             conn.commit()
             cursor.execute(f"UPDATE choosen SET re_people = re_people+1 WHERE course_id={course_id};")
             conn.commit()
-            return "Course added successfully!"
+            cursor.execute(f"UPDATE student SET recent_credit = recent_credit+{co_cre} WHERE id={student_id};")
+            conn.commit()
+            cursor.execute(f"SELECT * FROM choosen;")
+            aa=cursor.fetchone()
+            print(aa)
+            return "Success."
         else:
             return "Failed to add course. Please check requirements."
 
@@ -74,6 +79,8 @@ def submit():
             cursor.execute(f"UPDATE choosen SET re_people = re_people-1 WHERE course_id={course_id};")
             conn.commit()
             cursor.execute(f"DELETE FROM choosen WHERE student_id = {student_id} AND course_id = {course_id};")
+            conn.commit()
+            cursor.execute(f"UPDATE student SET recent_credit = recent_credit-{co_cre} WHERE id={student_id};")
             conn.commit()
             return "The course is required! Please check again!"
         
